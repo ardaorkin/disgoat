@@ -10,10 +10,13 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 async function embedGoats() {
   try {
     const images = await searchGoats();
-    const randomId = Math.floor(Math.random() * 100);
+    const randomId = Math.floor(
+      parseInt(new Date().toLocaleTimeString("tr-Tr", { hour: "numeric" })) / 4
+    );
+
     const embed = new EmbedBuilder()
       .setTitle("Lovely Goats")
-      .setImage(images[0].thumbnailLink);
+      .setImage(images[randomId].thumbnailLink);
     return client.channels.cache
       .get("1007408136778428459")
       .send({ embeds: [embed] });
