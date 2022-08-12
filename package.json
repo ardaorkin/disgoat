@@ -19,10 +19,8 @@
     "dotenv": "^16.0.1",
     "node-cron": "^3.0.1",
     "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.19",
     "sharp": "^0.30.7",
     "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.19"
   }
 }
