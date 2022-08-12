@@ -6,7 +6,7 @@ async function searchGoats() {
   const images = [];
   try {
     const response = await fetch(
-      `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_SEARCH_KEY}&cx=${process.env.SEARCH_ENGINE_ID}&q=goat&searchType=image&imgSize=huge&sort=date`
+      `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_SEARCH_KEY}&cx=${process.env.SEARCH_ENGINE_ID}&q=goat&searchType=image&imgSize=xxlarge&sort=date`
     );
     const result = await response.json();
     const { items } = result;
