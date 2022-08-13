@@ -13,7 +13,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 async function embedGoats() {
   try {
     const items = await searchGoats();
-    const randomId = Math.floor(new Date().getTime() % 10);
+    const randomId = Math.floor((new Date().getTime() / 10000) % 10);
     const itemWillEmbed = items[randomId];
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
