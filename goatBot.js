@@ -1,16 +1,11 @@
-// Require the necessary discord.js classes
-const { Client, GatewayIntentBits, EmbedBuilder } = require("discord.js");
-var cron = require("node-cron");
+const { EmbedBuilder } = require("discord.js");
 const { searchGoats } = require("./searchGoats");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { DISCORD_CHANNEL_ID, DISCORD_BOT_TOKEN } = process.env;
+const { DISCORD_CHANNEL_ID } = process.env;
 
-// Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-async function embedGoats() {
+async function goatBot(client) {
   try {
     const items = await searchGoats();
     const randomId =
@@ -20,7 +15,9 @@ async function embedGoats() {
           hour: "numeric",
         })
       ) % 10;
+
     const itemWillEmbed = items[randomId];
+
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
       .setTitle("Hourly Lovely Goats")
@@ -29,6 +26,7 @@ async function embedGoats() {
       )
       .setTimestamp()
       .setImage(itemWillEmbed.image.thumbnailLink);
+
     return client.channels.cache
       .get(DISCORD_CHANNEL_ID)
       .send({ embeds: [embed] });
@@ -39,14 +37,4 @@ async function embedGoats() {
   }
 }
 
-// When the client is ready, run this code (only once)
-client.once("ready", async () => {
-  await embedGoats();
-  const task = cron.schedule("0 * * * *", async () => {
-    await embedGoats();
-  });
-  task.start();
-});
-
-// Login to Discord with your client's token
-client.login(DISCORD_BOT_TOKEN);
+module.exports = { goatBot };
