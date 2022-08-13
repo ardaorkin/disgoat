@@ -18,7 +18,9 @@ async function embedGoats() {
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
       .setTitle("Hourly Lovely Goats")
-      .setDescription(itemWillEmbed.title)
+      .setDescription(
+        `[${itemWillEmbed.title}](${itemWillEmbed.image.contextLink})`
+      )
       .setTimestamp()
       .setImage(itemWillEmbed.image.thumbnailLink);
     return client.channels.cache
