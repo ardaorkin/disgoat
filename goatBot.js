@@ -21,7 +21,7 @@ async function embedGoats() {
       .setDescription(
         `[${itemWillEmbed.title}](${itemWillEmbed.image.contextLink})`
       )
-      .addFields(randomId)
+      .addFields({ name: "Random ID", value: randomId })
       .setTimestamp()
       .setImage(itemWillEmbed.image.thumbnailLink);
     return client.channels.cache
