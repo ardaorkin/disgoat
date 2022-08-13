@@ -10,9 +10,7 @@ In addition, [Discord.js](https://discord.js.org/#/) has been used for send mess
 
 ## Requirements
 
----
-
-- **GOOGLE Search Key**
+- **Google Search Key**
 - **Search Engine ID**
 - **Discord Bot Token**
 
@@ -21,8 +19,6 @@ You can follow this [document](https://developers.google.com/custom-search/docs/
 In addition, [this tutorial](https://discordpy.readthedocs.io/en/stable/discord.html) can be followed to obtain a **Discord Bot Token**.
 
 ## Environment Variables
-
----
 
 Goats need these environment variables to show themselves:
 |Name|Description|Default Value|
@@ -33,8 +29,6 @@ Goats need these environment variables to show themselves:
 |DISCORD_CHANNEL_ID|The id of the Discord channel where the Goats will graze|null|
 
 ## Installation
-
----
 
 To install dependencies run:
 
@@ -49,8 +43,6 @@ yarn
 ```
 
 ## Available Scripts
-
----
 
 ### `npm start`
 
