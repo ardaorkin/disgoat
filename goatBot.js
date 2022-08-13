@@ -12,14 +12,15 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 async function embedGoats() {
   try {
-    const images = await searchGoats();
-    const randomId = Math.floor((new Date().getTime() / 10000) % 10);
-    console.log(randomId);
+    const items = await searchGoats();
+    const randomId = Math.floor(new Date().getTime() % 10);
+    const itemWillEmbed = items[randomId];
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
-      .setTitle("Lovely Goats")
+      .setTitle("Hourly Lovely Goats")
+      .setDescription(itemWillEmbed.title)
       .setTimestamp()
-      .setImage(images[randomId].thumbnailLink);
+      .setImage(itemWillEmbed.image.thumbnailLink);
     return client.channels.cache
       .get(DISCORD_CHANNEL_ID)
       .send({ embeds: [embed] });
