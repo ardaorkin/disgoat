@@ -1,6 +1,6 @@
 const { searchGoats } = require("./searchGoats");
 const { randomIdGenerator } = require("../utils/randomIdGenerator");
-const { embedGenerator } = require("./utils/embedGenerator");
+const { embedGenerator } = require("../utils/embedGenerator");
 const dotenv = require("dotenv");
 dotenv.config();
 
