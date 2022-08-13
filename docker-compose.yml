@@ -1,0 +1,16 @@
+version: "3.4"
+
+services:
+  disgoats:
+    image: disgoats
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+      GOOGLE_SEARCH_KEY: ""
+      SEARCH_ENGINE_ID: ""
+      DISCORD_BOT_TOKEN: ""
+      DISCORD_CHANNEL_ID: ""
+    ports:
+      - 3000:3000
