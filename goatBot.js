@@ -13,7 +13,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 async function embedGoats() {
   try {
     const images = await searchGoats();
-    const randomId = Math.floor(new Date().getTime() / 4);
+    const randomId = new Date().getTime() % 10;
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
       .setTitle("Lovely Goats")
@@ -32,9 +32,9 @@ async function embedGoats() {
 // When the client is ready, run this code (only once)
 client.once("ready", async () => {
   await embedGoats();
-  // const task = cron.schedule("* * * * *", async () => {
-  await embedGoats();
-  // });
+  const task = cron.schedule("* * * * *", async () => {
+    await embedGoats();
+  });
   task.start();
 });
 
