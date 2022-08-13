@@ -32,7 +32,7 @@ async function embedGoats() {
 // When the client is ready, run this code (only once)
 client.once("ready", async () => {
   await embedGoats();
-  const task = cron.schedule("* * * * *", async () => {
+  const task = cron.schedule("* 0 * * *", async () => {
     await embedGoats();
   });
   task.start();
