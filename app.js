@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 var cron = require("node-cron");
 const dotenv = require("dotenv");
-const { goatBot } = require("./goatBot");
+const { goatBot } = require("./scripts/goatBot");
 dotenv.config();
 
 const { DISCORD_BOT_TOKEN } = process.env;
