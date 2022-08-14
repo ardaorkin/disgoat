@@ -16,11 +16,11 @@ async function searchGoatSongs(songIndex = 0) {
     const result = await response.json();
     const {
       preview_url,
-      artists,
+      external_urls: { spotify },
       name,
       album: { images },
     } = result.tracks.items[songIndex];
-    return { preview_url, artists, name, images };
+    return { preview_url, spotify, name, images };
   } catch (error) {
     throw error;
   }

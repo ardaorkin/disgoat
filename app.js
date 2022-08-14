@@ -8,7 +8,7 @@ const { DISCORD_BOT_TOKEN } = process.env;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once("ready", async () => {
-  await goatBot(client, "image");
+  await goatBot(client, "song");
   const task1 = cron.schedule("0 * * * *", async () => {
     await goatBot(client, "image");
   });

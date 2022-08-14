@@ -38,11 +38,11 @@ async function goatBot(client, botType = "image") {
       const goatSong = await searchGoatSongs(
         searchIndex > 50 ? searchIndex - 50 : searchIndex
       );
-      const { preview_url, artists, name, images } = goatSong;
+      const { preview_url, spotify, name, images } = goatSong;
       audioPlayerGenerator(preview_url, name, channelInfo);
       embed = embedGenerator(
         `Listen it in spotify!\n${name}`,
-        preview_url,
+        spotify,
         images[0].url
       );
     }
