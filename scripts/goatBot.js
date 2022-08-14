@@ -9,7 +9,8 @@ const { DISCORD_CHANNEL_ID } = process.env;
 async function goatBot(client) {
   try {
     const randomId = randomIdGenerator();
-    const items = await searchGoats(Math.floor(randomId / 10));
+    const searchStartIndex = parseInt(Math.floor(Math.random() * 100));
+    const items = await searchGoats(searchStartIndex);
     const {
       title,
       image: { contextLink, thumbnailLink },
