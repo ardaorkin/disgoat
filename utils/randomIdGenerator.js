@@ -4,7 +4,7 @@ function randomIdGenerator(date = new Date()) {
       timeZone: "America/New_York",
       hour: "numeric",
     });
-    randomId = hour % 10;
+    const randomId = hour % 10;
     return randomId;
   } catch (error) {
     throw error;
