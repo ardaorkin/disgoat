@@ -26,6 +26,9 @@ async function goatBot(client, botType = "image") {
       .filter((channel) => channel.name === "Goatserver")[0];
     if (botType === "image") {
       const items = await searchGoats(searchIndex);
+      if (!items) {
+        goatBot(client, botType);
+      }
       const {
         title,
         image: { contextLink, thumbnailLink },
