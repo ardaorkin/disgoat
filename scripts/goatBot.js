@@ -6,7 +6,7 @@ const { searchGoatSongs } = require("./searchGoatSongs");
 const { audioPlayerGenerator } = require("../utils/audioPlayerGenerator");
 dotenv.config();
 
-const { DISCORD_CHANNEL_ID } = process.env;
+const { DISCORD_CHANNEL_ID, DEBUG } = process.env;
 
 async function goatBot(client, botType = "image") {
   try {
@@ -47,9 +47,11 @@ async function goatBot(client, botType = "image") {
       embeds: [embed],
     });
   } catch (error) {
-    return client.channels.cache
-      .get(DISCORD_CHANNEL_ID)
-      .send(error.message + " " + error.stack);
+    if (DEBUG) {
+      return client.channels.cache
+        .get(DISCORD_CHANNEL_ID)
+        .send(error.message + " " + error.stack);
+    }
   }
 }
 
