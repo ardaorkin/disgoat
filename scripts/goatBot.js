@@ -40,7 +40,11 @@ async function goatBot(client, botType = "image") {
       );
       const { preview_url, artists, name, images } = goatSong;
       audioPlayerGenerator(preview_url, name, channelInfo);
-      embed = embedGenerator(name, preview_url, images[0].url);
+      embed = embedGenerator(
+        `Listen it in spotify!\n${name}`,
+        preview_url,
+        images[0].url
+      );
     }
 
     return client.channels.cache.get(DISCORD_CHANNEL_ID).send({
