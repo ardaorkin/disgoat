@@ -10,10 +10,10 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once("ready", async () => {
   await goatBot(client, "image");
   const task1 = cron.schedule("0 * * * *", async () => {
-    await goatBot(client);
+    await goatBot(client, "image");
   });
   const task2 = cron.schedule("30 * * * *", async () => {
-    await goatBot(client);
+    await goatBot(client, "song");
   });
   task1.start();
   task2.start();
