@@ -27,7 +27,10 @@ async function goatBot(client, botType = "image") {
     if (botType === "image") {
       const items = await searchGoats(searchIndex);
       if (!items) {
-        goatBot(client, botType);
+        setTimeout(() => {
+          console.log("Search result is null. It will be tried again.");
+          return goatBot(client, botType);
+        }, 10000);
       }
       const {
         title,
@@ -39,7 +42,7 @@ async function goatBot(client, botType = "image") {
         searchIndex > 50 ? searchIndex - 50 : searchIndex
       );
       const { preview_url, spotify, name, images } = goatSong;
-      audioPlayerGenerator(preview_url, name, channelInfo);
+      // audioPlayerGenerator(preview_url, name, channelInfo);
       embed = embedGenerator(
         `Listen it in spotify!\n${name}`,
         spotify,
@@ -55,6 +58,8 @@ async function goatBot(client, botType = "image") {
       return client.channels.cache
         .get(DISCORD_CHANNEL_ID)
         .send(error.message + " " + error.stack);
+    } else {
+      console.log(error);
     }
   }
 }
