@@ -4,7 +4,7 @@ dotenv.config();
 
 const { GOOGLE_SEARCH_KEY, SEARCH_ENGINE_ID } = process.env;
 
-async function searchGoats(startIndex) {
+async function searchGoats(startIndex = 0) {
   try {
     const response = await fetch(
       `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_SEARCH_KEY}&cx=${SEARCH_ENGINE_ID}&q=goat&searchType=image&sort=date&start=${startIndex}`
@@ -16,4 +16,5 @@ async function searchGoats(startIndex) {
     throw error;
   }
 }
+
 module.exports = { searchGoats };
