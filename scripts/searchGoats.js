@@ -9,9 +9,9 @@ async function searchGoats(startIndex = 0) {
     const response = await fetch(
       `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_SEARCH_KEY}&cx=${SEARCH_ENGINE_ID}&q=goat&searchType=image&sort=date&start=${startIndex}`
     );
+
     const result = await response.json();
-    const { items } = result;
-    return items;
+    return result;
   } catch (error) {
     throw error;
   }

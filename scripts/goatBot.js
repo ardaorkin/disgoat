@@ -25,12 +25,20 @@ async function goatBot(client, botType = "image") {
       })
       .filter((channel) => channel.name === "Goatserver")[0];
     if (botType === "image") {
-      const items = await searchGoats(searchIndex);
-      if (!items) {
+      const {
+        items,
+        error: { details },
+      } = await searchGoats(searchIndex);
+      if (!items && !details) {
         setTimeout(() => {
           console.log("Search result is null. It will be tried again.");
           return goatBot(client, botType);
         }, 10000);
+      }
+      if (details) {
+        return client.channels.cache
+          .get(DISCORD_CHANNEL_ID)
+          .send("Goats migrated :( But don't worry, they will back!");
       }
       const {
         title,
