@@ -6,7 +6,7 @@ const { searchGoatSongs } = require("./searchGoatSongs");
 const { audioPlayerGenerator } = require("../utils/audioPlayerGenerator");
 dotenv.config();
 
-const { DISCORD_CHANNEL_ID } = process.env;
+const { DISCORD_CHANNEL_ID, DEBUG } = process.env;
 
 async function goatBot(client, botType = "image") {
   try {
@@ -25,28 +25,47 @@ async function goatBot(client, botType = "image") {
       })
       .filter((channel) => channel.name === "Goatserver")[0];
     if (botType === "image") {
-      const items = await searchGoats(searchIndex);
+      const searchResult = await searchGoats(searchIndex);
+      if (!searchResult?.items && !searchResult?.error?.details) {
+        setTimeout(() => {
+          console.log("Search result is null. It will be tried again.");
+          return goatBot(client, botType);
+        }, 10000);
+      }
+      if (searchResult?.error?.details) {
+        return client.channels.cache
+          .get(DISCORD_CHANNEL_ID)
+          .send("Goats migrated :( But don't worry, they will back!");
+      }
       const {
         title,
         image: { contextLink, thumbnailLink },
-      } = items[randomId];
+      } = searchResult?.items[randomId];
       embed = embedGenerator(title, contextLink, thumbnailLink);
     } else {
       const goatSong = await searchGoatSongs(
         searchIndex > 50 ? searchIndex - 50 : searchIndex
       );
-      const { preview_url, artists, name, images } = goatSong;
-      audioPlayerGenerator(preview_url, name, channelInfo);
-      embed = embedGenerator(name, preview_url, images[0].url);
+      const { preview_url, spotify, name, images } = goatSong;
+      // audioPlayerGenerator(preview_url, name, channelInfo);
+      embed = embedGenerator(
+        `Listen it in spotify!\n${name}`,
+        spotify,
+        images[0].url
+      );
     }
 
     return client.channels.cache.get(DISCORD_CHANNEL_ID).send({
       embeds: [embed],
     });
   } catch (error) {
-    return client.channels.cache
-      .get(DISCORD_CHANNEL_ID)
-      .send(error.message + " " + error.stack);
+    if (DEBUG) {
+      return client.channels.cache
+        .get(DISCORD_CHANNEL_ID)
+        .send(error.message + " " + error.stack);
+    } else {
+      console.log(error);
+    }
   }
 }
 
