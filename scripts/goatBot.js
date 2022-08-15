@@ -25,17 +25,14 @@ async function goatBot(client, botType = "image") {
       })
       .filter((channel) => channel.name === "Goatserver")[0];
     if (botType === "image") {
-      const {
-        items,
-        error: { details },
-      } = await searchGoats(searchIndex);
-      if (!items && !details) {
+      const searchResult = await searchGoats(searchIndex);
+      if (!searchResult?.items && !searchResult?.error?.details) {
         setTimeout(() => {
           console.log("Search result is null. It will be tried again.");
           return goatBot(client, botType);
         }, 10000);
       }
-      if (details) {
+      if (searchResult?.error?.details) {
         return client.channels.cache
           .get(DISCORD_CHANNEL_ID)
           .send("Goats migrated :( But don't worry, they will back!");
@@ -43,7 +40,7 @@ async function goatBot(client, botType = "image") {
       const {
         title,
         image: { contextLink, thumbnailLink },
-      } = items[randomId];
+      } = searchResult?.items[randomId];
       embed = embedGenerator(title, contextLink, thumbnailLink);
     } else {
       const goatSong = await searchGoatSongs(
